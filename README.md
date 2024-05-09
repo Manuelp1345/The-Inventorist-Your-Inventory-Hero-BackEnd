@@ -22,7 +22,7 @@ install the dependencies and create the database
 npm install
 ```
 
-1. Create a dabaase in MariaDB with the name.
+1. Create a dabaase in MariaDB.
 2. Create a `.env` file in the root directory of the project and add the following environment variables:
 
 ```

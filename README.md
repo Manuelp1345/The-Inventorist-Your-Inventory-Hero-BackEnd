@@ -22,15 +22,17 @@ install the dependencies and create the database
 npm install
 ```
 
-1. Create a dabaase in MariaDB.
+1. Create a dabaase in MariaDB or mysql.
 2. Create a `.env` file in the root directory of the project and add the following environment variables:
 
 ```
 
+DB_TYPE=mysql
 DB_HOST=localhost
-DB_USER=root
+DB_USERNAME=root
+DB_PORT=3306
 DB_PASSWORD=your_password
-DB_NAME=your_database_name
+DB_DATABASE=your_database_name
 JWT_SECRET=your_secret
 
 ```

@@ -155,7 +155,7 @@ export const resetPassword = async (req: CustomRequest, res: Response) => {
             <h1>The Inventorist</h1>
             <h2>Your Inventory Hero</h2>
             <p>Click on the following link to reset your password</p>
-            <a href="${REACT_APP_URL}/${user.id}?token=${token}" class="button">Reset Password</a>
+            <a href="${REACT_APP_URL}/reset-password/${user.id}?token=${token}" class="button">Reset Password</a>
             <p>If you didn't request a password reset, you can ignore this email</p>
             <p>this request expires in 10 minutes</p>
         </div>

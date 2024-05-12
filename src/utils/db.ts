@@ -21,6 +21,9 @@ export const connectToDatabase = async () => {
     entities: [User, Product],
     synchronize: true,
     logger: "advanced-console",
+    ssl: {
+      rejectUnauthorized: false,
+    },
   });
   try {
     await connection.connect();

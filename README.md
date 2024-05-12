@@ -46,3 +46,9 @@ npm run dev
 ```
 
 The app will be running at `http://localhost:3000`.
+
+<!-- documentation with swagger -->
+
+## API Documentation
+
+The API documentation is available at `http://localhost:PORT/api-docs`.

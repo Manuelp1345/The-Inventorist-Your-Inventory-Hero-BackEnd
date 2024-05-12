@@ -15,6 +15,6 @@ authProduct.get("/:state/:search", getProductsBySearch);
 authProduct.post("/", createProduct);
 authProduct.patch("/:id", updateProduct);
 authProduct.delete("/:id", deleteProduct);
-authProduct.post("/creates", createProducts);
+authProduct.post("/bulk", createProducts);
 
 export default authProduct;

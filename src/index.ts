@@ -1,9 +1,11 @@
 import express, { Request, Response } from "express";
-import router from "./routes";
+import swaggerUi from "swagger-ui-express";
 import { logRequestDetails } from "./middleware/logger";
-import "reflect-metadata";
 import { connectToDatabase } from "./utils/db";
 import { PORT } from "./utils/contants";
+import router from "./routes";
+import "reflect-metadata";
+import swaggerSpec from "./utils/swagger";
 
 const app = express();
 const port = PORT;
@@ -11,6 +13,8 @@ const port = PORT;
 app.get("/", (req: Request, res: Response) => {
   res.send("Hola Mundo!");
 });
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true }));

@@ -18,6 +18,64 @@ const productSchema = Joi.object({
 
 const productsSchema = Joi.array().items(productSchema);
 
+/**
+ * @swagger
+ * /product:
+ *   post:
+ *     tags: [Products]
+ *     security:
+ *       - BearerAuth: []
+ *     summary: Crea un nuevo producto
+ *     description: Crea un nuevo producto y lo asocia con el usuario autenticado.
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Token de acceso del usuario
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - barcode
+ *               - comparePrice
+ *               - description
+ *               - grams
+ *               - price
+ *               - sku
+ *               - stock
+ *               - title
+ *               - handle
+ *             properties:
+ *               barcode:
+ *                 type: string
+ *               comparePrice:
+ *                 type: number
+ *               description:
+ *                 type: string
+ *               grams:
+ *                 type: number
+ *               price:
+ *                 type: number
+ *               sku:
+ *                 type: string
+ *               stock:
+ *                 type: number
+ *               title:
+ *                 type: string
+ *               handle:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Producto creado exitosamente
+ *       400:
+ *         description: Error en la creación del producto
+ */
+
 export const createProduct = async (req: CustomRequest, res: Response) => {
   const { error } = productSchema.validate(req.body);
   if (error) {
@@ -53,6 +111,27 @@ export const createProduct = async (req: CustomRequest, res: Response) => {
   });
 };
 
+/**
+ * @swagger
+ * /product:
+ *   get:
+ *     security:
+ *       - BearerAuth: []
+ *     tags: [Products]
+ *     summary: Obtiene todos los productos
+ *     description: Obtiene todos los productos activos en la base de datos.
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Token de acceso del usuario
+ *     responses:
+ *       200:
+ *         description: Productos obtenidos exitosamente
+ */
+
 export const getProductsBySearch = async (
   req: CustomRequest,
   res: Response
@@ -74,6 +153,62 @@ export const getProductsBySearch = async (
 
   return res.send(products);
 };
+
+/**
+ * @swagger
+ * /product/{id}:
+ *   patch:
+ *     tags: [Products]
+ *     security:
+ *       - BearerAuth: []
+ *     summary: Actualiza un producto existente
+ *     description: Actualiza un producto existente y lo asocia con el usuario autenticado.
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Token de acceso del usuario
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del producto
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               barcode:
+ *                 type: string
+ *               comparePrice:
+ *                 type: number
+ *               description:
+ *                 type: string
+ *               grams:
+ *                 type: number
+ *               price:
+ *                 type: number
+ *               sku:
+ *                 type: string
+ *               stock:
+ *                 type: number
+ *               title:
+ *                 type: string
+ *               handle:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Producto actualizado exitosamente
+ *       400:
+ *         description: Error en la actualización del producto
+ *       404:
+ *         description: Producto no encontrado
+ */
 
 export const updateProduct = async (req: CustomRequest, res: Response) => {
   const { id } = req.params;
@@ -115,6 +250,35 @@ export const updateProduct = async (req: CustomRequest, res: Response) => {
   });
 };
 
+/**
+ * @swagger
+ * /product/{id}:
+ *   delete:
+ *     tags: [Products]
+ *     security:
+ *       - BearerAuth: []
+ *     summary: Elimina un producto existente
+ *     description: Elimina un producto existente y lo asocia con el usuario autenticado.
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Token de acceso del usuario
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del producto
+ *     responses:
+ *       200:
+ *         description: Producto eliminado exitosamente
+ *       404:
+ *         description: Producto no encontrado
+ */
+
 export const deleteProduct = async (req: CustomRequest, res: Response) => {
   const { id } = req.params;
 
@@ -140,6 +304,66 @@ export const deleteProduct = async (req: CustomRequest, res: Response) => {
     user: (req.user as User).username,
   });
 };
+
+/**
+ * @swagger
+ * /product/bulk:
+ *   post:
+ *     tags: [Products]
+ *     security:
+ *       - BearerAuth: []
+ *     summary: Crea varios productos
+ *     description: Crea varios productos y los asocia con el usuario autenticado.
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Token de acceso del usuario
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: array
+ *             items:
+ *               type: object
+ *               required:
+ *                 - barcode
+ *                 - comparePrice
+ *                 - description
+ *                 - grams
+ *                 - price
+ *                 - sku
+ *                 - stock
+ *                 - title
+ *                 - handle
+ *               properties:
+ *                 barcode:
+ *                   type: string
+ *                 comparePrice:
+ *                   type: number
+ *                 description:
+ *                   type: string
+ *                 grams:
+ *                   type: number
+ *                 price:
+ *                   type: number
+ *                 sku:
+ *                   type: string
+ *                 stock:
+ *                   type: number
+ *                 title:
+ *                   type: string
+ *                 handle:
+ *                   type: string
+ *     responses:
+ *       200:
+ *         description: Productos creados exitosamente
+ *       400:
+ *         description: Error en la creación de los productos
+ */
 
 export const createProducts = async (req: CustomRequest, res: Response) => {
   const { error } = productsSchema.validate(req.body);

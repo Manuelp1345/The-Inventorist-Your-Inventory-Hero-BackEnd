@@ -22,6 +22,60 @@ const RegisterSchema = Joi.object({
   email: Joi.string().email().required(),
 });
 
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     BearerAuth:            # arbitrary name for the security scheme
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT    # optional, arbitrary value for documentation purposes
+ * ...
+ */
+
+/**
+ * @swagger
+ * tags:
+ *   - name: Auth
+ *     description: Authentication
+ *   - name: Products
+ *     description: Products
+ */
+/**
+ * @swagger
+ * /auth/login:
+ *   post:
+ *     tags: [Auth]
+ *     summary: Inicia sesión en la aplicación
+ *     description: Autentica a un usuario y devuelve un token de acceso.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *               - password
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Inicio de sesión exitoso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *       400:
+ *         description: Error de inicio de sesión
+ */
+
 export const login = async (req: CustomRequest, res: Response) => {
   const { error } = LoginSchema.validate(req.body);
   if (error) {
@@ -58,6 +112,46 @@ export const login = async (req: CustomRequest, res: Response) => {
 
   res.send({ token, expiresIn: 3600 });
 };
+
+/**
+ * @swagger
+ * /auth/register:
+ *   post:
+ *     tags: [Auth]
+ *     summary: Registra un nuevo usuario
+ *     description: Crea un nuevo usuario en la aplicación.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *               - password
+ *               - email
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Usuario creado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 username:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *       400:
+ *         description: Error al crear el usuario
+ */
 
 export const register = async (req: CustomRequest, res: Response) => {
   const { error } = RegisterSchema.validate(req.body);
@@ -98,6 +192,33 @@ export const register = async (req: CustomRequest, res: Response) => {
 
   res.send(user);
 };
+
+/**
+ * @swagger
+ * /auth/reset-password:
+ *   post:
+ *     tags: [Auth]
+ *     summary: Envia un correo para resetear la contraseña
+ *     description: Envia un correo al usuario para resetear la contraseña
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *             properties:
+ *               email:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Correo enviado
+ *       404:
+ *         description: Correo no encontrado
+ *       400:
+ *         description: Error al enviar el correo
+ */
 
 export const resetPassword = async (req: CustomRequest, res: Response) => {
   const { email } = req.body;
@@ -170,6 +291,36 @@ export const resetPassword = async (req: CustomRequest, res: Response) => {
   console.log(data);
   return res.send("Email sent");
 };
+
+/**
+ * @swagger
+ * /auth/change-password:
+ *   post:
+ *     tags: [Auth]
+ *     summary: Cambia la contraseña de un usuario
+ *     description: Cambia la contraseña de un usuario
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - password
+ *               - id
+ *             properties:
+ *               password:
+ *                 type: string
+ *               id:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Contraseña actualizada
+ *       404:
+ *         description: Usuario no encontrado
+ *       400:
+ *         description: Error al actualizar la contraseña
+ */
 
 export const changePassword = async (req: CustomRequest, res: Response) => {
   const { password, id } = req.body;

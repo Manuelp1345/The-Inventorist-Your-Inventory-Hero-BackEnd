@@ -60,6 +60,7 @@ export const getProductsBySearch = async (
   const { search } = req.params;
 
   const products = await Product.find({
+    order: { handle: "DESC" },
     where: search
       ? [
           { id: String(search), state: "active" },
@@ -69,7 +70,6 @@ export const getProductsBySearch = async (
           { barcode: String(search), state: "active" },
         ]
       : { state: "active" },
-    relations: ["user"],
   });
 
   return res.send(products);

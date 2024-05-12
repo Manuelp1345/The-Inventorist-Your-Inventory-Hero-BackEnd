@@ -5,7 +5,11 @@ import { CustomRequest } from "../../utils/types";
 import { User } from "../../entities/user.entity";
 import Joi from "joi";
 import { Resend } from "resend";
-import { JWT_SECRET, RESEND_API_KEY } from "../../utils/contants";
+import {
+  JWT_SECRET,
+  REACT_APP_URL,
+  RESEND_API_KEY,
+} from "../../utils/contants";
 
 const LoginSchema = Joi.object({
   username: Joi.string().required(),
@@ -151,7 +155,7 @@ export const resetPassword = async (req: CustomRequest, res: Response) => {
             <h1>The Inventorist</h1>
             <h2>Your Inventory Hero</h2>
             <p>Click on the following link to reset your password</p>
-            <a href="http://localhost:3000/reset-password/${user.id}?token=${token}" class="button">Reset Password</a>
+            <a href="${REACT_APP_URL}/${user.id}?token=${token}" class="button">Reset Password</a>
             <p>If you didn't request a password reset, you can ignore this email</p>
             <p>this request expires in 10 minutes</p>
         </div>

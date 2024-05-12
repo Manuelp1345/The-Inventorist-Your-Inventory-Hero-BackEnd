@@ -11,10 +11,10 @@ import {
 import { Product } from "./product.entity";
 
 @Entity("users")
-@Unique(["email"])
+@Unique(["email", "username"])
 export class User extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id!: number;
+  @PrimaryGeneratedColumn("uuid")
+  id!: string;
 
   @Column({ length: 100 })
   username!: string;
@@ -25,7 +25,6 @@ export class User extends BaseEntity {
   @Column({ length: 100 })
   email!: string;
 
-  //relacion uno a muchos
   @OneToMany(() => Product, (product) => product.user)
   products!: Product[];
 }

@@ -27,7 +27,6 @@ npm install
 
 ```
 
-DB_TYPE=mysql
 DB_HOST=localhost
 DB_USERNAME=root
 DB_PORT=3306
@@ -45,7 +44,3 @@ npm run dev
 ```
 
 The app will be running at `http://localhost:3000`.
-
-## API Documentation
-
-For detailed information on the available API endpoints and how to use them, please refer to the [API documentation](/E:/Programacion/the-inventorist-your-inventory-hero-backend/API.md).

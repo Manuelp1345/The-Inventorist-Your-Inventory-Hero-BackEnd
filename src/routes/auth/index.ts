@@ -1,9 +1,16 @@
 //router main
 import { Router } from "express";
-import { login, register } from "../../modules/auth";
+import {
+  changePassword,
+  login,
+  register,
+  resetPassword,
+} from "../../modules/auth";
 const authRouter = Router();
 
 authRouter.post("/login", login);
 authRouter.post("/register", register);
+authRouter.post("/reset-password", resetPassword);
+authRouter.post("/change-password", changePassword);
 
 export default authRouter;

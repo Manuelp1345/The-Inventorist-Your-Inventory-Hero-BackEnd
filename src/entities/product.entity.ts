@@ -42,7 +42,6 @@ export class Product extends BaseEntity {
   @Column({ default: "active" })
   state!: string;
 
-  //creado por el usuario id many to one
   @ManyToOne(() => User, (user) => user.products)
   user!: User;
 }

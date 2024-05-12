@@ -16,6 +16,8 @@ const productSchema = Joi.object({
   barcode: Joi.string().required(),
 });
 
+const productsSchema = Joi.array().items(productSchema);
+
 export const createProduct = async (req: CustomRequest, res: Response) => {
   const { error } = productSchema.validate(req.body);
   if (error) {
@@ -136,5 +138,43 @@ export const deleteProduct = async (req: CustomRequest, res: Response) => {
   return res.send({
     ...response,
     user: (req.user as User).username,
+  });
+};
+
+export const createProducts = async (req: CustomRequest, res: Response) => {
+  const { error } = productsSchema.validate(req.body);
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
+
+  const user = req.user as User;
+
+  const products = req.body.map((product: any) => {
+    return Product.create({
+      barcode: product.barcode,
+      comparePrice: product.comparePrice,
+      description: product.description,
+      grams: product.grams,
+      price: product.price,
+      SKU: product.sku,
+      stock: product.stock,
+      title: product.title,
+      handle: product.handle,
+      user: {
+        id: user.id,
+      },
+    });
+  });
+
+  let response;
+  try {
+    response = await Product.save(products);
+  } catch (error) {
+    return res.status(500).send("Error creating products");
+  }
+
+  return res.send({
+    ...response,
+    user: user.username,
   });
 };

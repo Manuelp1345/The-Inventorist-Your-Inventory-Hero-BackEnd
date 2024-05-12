@@ -3,6 +3,7 @@ import { Router } from "express";
 import { login, register } from "../../modules/auth";
 import {
   createProduct,
+  createProducts,
   deleteProduct,
   getProductsBySearch,
   updateProduct,
@@ -14,5 +15,6 @@ authProduct.get("/:state/:search", getProductsBySearch);
 authProduct.post("/", createProduct);
 authProduct.patch("/:id", updateProduct);
 authProduct.delete("/:id", deleteProduct);
+authProduct.post("/creates", createProducts);
 
 export default authProduct;

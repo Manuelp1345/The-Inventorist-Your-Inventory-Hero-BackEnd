@@ -33,6 +33,8 @@ DB_PORT=3306
 DB_PASSWORD=your_password
 DB_DATABASE=your_database_name
 JWT_SECRET=your_secret
+RESEND_API_KEY=your_resend_api_key
+REACT_APP_URL=http://localhost:3000
 
 ```
 

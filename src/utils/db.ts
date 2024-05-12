@@ -12,7 +12,7 @@ import { Product } from "../entities/product.entity";
 
 export const connectToDatabase = async () => {
   const connection = new DataSource({
-    type: DB_TYPE as any,
+    type: "mysql",
     host: DB_HOST,
     port: Number(DB_PORT),
     username: DB_USERNAME,

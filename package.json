@@ -20,12 +20,14 @@
   "homepage": "https://github.com/Manuelp1345/The-Inventorist-Your-Inventory-Hero-BackEnd#readme",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "joi": "^17.13.1",
     "jsonwebtoken": "^9.0.2",
     "mysql": "^2.18.1",
     "reflect-metadata": "^0.2.2",
+    "resend": "^3.2.0",
     "typeorm": "^0.3.20"
   },
   "devDependencies": {

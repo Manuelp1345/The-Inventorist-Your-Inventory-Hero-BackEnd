@@ -9,3 +9,4 @@ export const DB_PASSWORD = process.env.DB_PASSWORD;
 export const DB_DATABASE = process.env.DB_DATABASE;
 export const JWT_SECRET = process.env.JWT_SECRET || "";
 export const RESEND_API_KEY = process.env.RESEND_API_KEY || "";
+export const REACT_APP_URL = process.env.REACT_APP_URL || "";
